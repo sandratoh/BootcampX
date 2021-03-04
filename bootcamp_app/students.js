@@ -11,7 +11,8 @@ pool.query(`
 SELECT students.id, students.name, cohorts.name AS cohort
 FROM students
 JOIN cohorts ON cohort_id = cohorts.id
-LIMIT 5;
+WHERE cohorts.name LIKE '%${process.argv[2]}%'
+LIMIT ${process.argv[3] || 5};
 `)
   .then(res => {
     res.rows.forEach(user => {
